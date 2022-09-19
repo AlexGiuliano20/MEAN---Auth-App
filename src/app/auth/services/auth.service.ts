@@ -25,13 +25,9 @@ export class AuthService {
     const body = { name, email, password };
 
     return this._http.post<AuthResponse>(url, body).pipe(
-      tap((resp) => {
-        if (resp.ok) {
-          localStorage.setItem('token', resp.token!);
-          this._usuario = {
-            name: resp.name!,
-            uid: resp.uid!,
-          };
+      tap(({ ok, token }) => {
+        if (ok) {
+          localStorage.setItem('token', token!);
         }
       }),
       map((resp) => resp.ok),
@@ -47,10 +43,6 @@ export class AuthService {
       tap((resp) => {
         if (resp.ok) {
           localStorage.setItem('token', resp.token!);
-          this._usuario = {
-            name: resp.name!,
-            uid: resp.uid!,
-          };
         }
       }),
       map((resp) => resp.ok),
@@ -71,6 +63,7 @@ export class AuthService {
         this._usuario = {
           name: resp.name!,
           uid: resp.uid!,
+          email: resp.email!,
         };
 
         return resp.ok;

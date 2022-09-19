@@ -33,15 +33,11 @@ export class RegisterComponent {
 
   register() {
     const { name, email, password } = this.miFormulario.value;
-    console.log(this.miFormulario.value);
 
     this._authService.registro(name, email, password).subscribe((ok) => {
-      console.log(ok);
-      if (ok === true) {
-        this._route.navigateByUrl('/dashboard');
-      } else {
-        Swal.fire('Error', ok, 'error');
-      }
+      ok === true
+        ? this._route.navigateByUrl('/dashboard')
+        : Swal.fire('Error', ok, 'error');
     });
   }
 }

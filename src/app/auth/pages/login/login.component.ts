@@ -31,16 +31,12 @@ export class LoginComponent {
   ) {}
 
   login() {
-    console.log(this.miFormulario.value);
     const { email, password } = this.miFormulario.value;
 
     this._authService.login(email, password).subscribe((ok) => {
-      console.log(ok);
-      if (ok === true) {
-        this._route.navigateByUrl('/dashboard');
-      } else {
-        Swal.fire('Error', ok, 'error');
-      }
+      ok === true
+        ? this._route.navigateByUrl('/dashboard')
+        : Swal.fire('Error', ok, 'error');
     });
   }
 }
