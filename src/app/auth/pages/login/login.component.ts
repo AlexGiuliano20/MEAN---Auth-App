@@ -31,9 +31,10 @@ export class LoginComponent {
     console.log(this.miFormulario.value);
     const { email, password } = this.miFormulario.value;
 
-    this._authService
-      .login(email, password)
-      .subscribe((resp) => console.log(resp));
-    // this._route.navigateByUrl('/dashboard');
+    this._authService.login(email, password).subscribe((ok) => {
+      if (ok) {
+        this._route.navigateByUrl('/dashboard');
+      }
+    });
   }
 }
